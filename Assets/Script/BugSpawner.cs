@@ -6,7 +6,6 @@ public class BugSpawner : MonoBehaviour
 {
     public GameObject gameArea; //the area the bugs will spawn around
     public GameObject bugPrefab; //the bugs itself
-    public Transform player;
 
     public int bugCount = 0; //the number of bugs currently existing
     public int bugLimit = 150; //the limit of how many bugs can exist at one time
@@ -38,15 +37,12 @@ public class BugSpawner : MonoBehaviour
             {
                 Vector3 position = GetRandomPosition(); //randomises spawn position
                 BugAI bug_script = SpawnBug(position); //spawns a bug at that position
-                bug_script.transform.Rotate(Vector3.forward * Random.Range(-45.0f, 45.0f));
             }
         }
     }
 
     Vector3 GetRandomPosition()
     {
-        /** Get a random spawn position, using a 2D circle around the game area. **/
-
         Vector3 position = Random.insideUnitCircle;
 
         position = position.normalized;
@@ -59,16 +55,13 @@ public class BugSpawner : MonoBehaviour
 
     BugAI SpawnBug(Vector3 position)
     {
-        /**Add a new bug to the game and set the basic attributes. **/
-
         bugCount += 1;
-        GameObject new_bug = Instantiate(bugPrefab, position, Quaternion.FromToRotation(Vector3.down, (player.transform.position - position)), gameObject.transform);
+        GameObject new_bug = Instantiate(bugPrefab, position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
 
         BugAI bug_script = new_bug.GetComponent<BugAI>();   
         bug_script.bugSpawner = this;
         bug_script.gameArea = gameArea;
         bug_script.speed = Random.Range(5f, 20f);
-        bug_script.player = player;
 
         return bug_script;
     }

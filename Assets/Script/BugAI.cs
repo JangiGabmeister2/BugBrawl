@@ -18,27 +18,19 @@ public class BugAI : MonoBehaviour
 
     void Move()
     {
-        /** Move this bug forward per frame, if it gets too far from the game area, destroy it **/
-
         transform.position += transform.up * (Time.deltaTime * speed);
+
+        transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(-45f,45f));
 
         float distance = Vector3.Distance(transform.position, gameArea.transform.position);
         if (distance > bugSpawner.deathCircleRadius)
         {
-            RemoveShip();
-        }
-
-        if (player.transform.position == transform.position && Input.GetKeyDown(KeyCode.Space))
-        {
-                GetComponent<Animator>().Play("EnemyPunched");
-            RemoveShip();
+            RemoveBug();
         }
     }
 
-    void RemoveShip()
+    void RemoveBug()
     {
-        /** Update the total bug count and then destroy this individual bug. **/
-
         Destroy(gameObject);
         bugSpawner.bugCount -= 1;
     }
