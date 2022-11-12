@@ -12,8 +12,8 @@ public class ScreenBounds : MonoBehaviour
     private void Start()
     {
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x - .5f;
-        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y - .5f;
+        objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x - 7;
+        objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y - 7;
     }
 
     private void LateUpdate()
