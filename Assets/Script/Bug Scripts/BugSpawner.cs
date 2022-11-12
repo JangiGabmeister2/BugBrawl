@@ -5,47 +5,47 @@ using UnityEngine;
 public class BugSpawner : MonoBehaviour
 {
     public GameObject gameArea; //the area the bugs will spawn around
-    public GameObject[] bugPrefab; //the bugs itself
-    public Transform player;
+    public GameObject bugPrefab; //the bugs itself
 
     public int bugCount = 0; //the number of bugs currently existing
-    public int bugLimit; //the limit of how many bugs can exist at one time
-    public int bugsPerFrame ; //the rate at which a bug is created per game frame
+    public int bugLimit = 150; //the limit of how many bugs can exist at one time
+    public int bugsPerFrame = 1; //the rate at which a bug is created per game frame
 
-    public float spawnCircleRadius; //the radius around the center of the screen where bugs will spawn
-    public float deathCircleRadius; //the radius where bugs will be deleted if they cross it
+    public float spawnCircleRadius = 20.0f; //the radius around the center of the screen where bugs will spawn
+    public float deathCircleRadius = 30.0f; //the radius where bugs will be deleted if they cross it
 
-    [SerializeField] Animator punchedAnimator;
-    [SerializeField] AnimationClip punchedAnimClip;
+    public Animator punchedAnimation;
 
     private void Start()
     {
-        InvokeRepeating(nameof(SpawnBug), 1f, 1f);
+
     }
 
     void Update()
     {
-
+        MaintainPopulation();
     }
 
     //creates more bugs as they are destroyed while keeping it within the limit
-    void SpawnBug()
+    void MaintainPopulation()
     {
         //checks if bug count is within the limit
         if (bugCount < bugLimit)
         {
+            //for every bug created per frame
             for (int i = 0; i < bugsPerFrame; i++)
             {
                 Vector3 position = GetRandomPosition(); //randomises spawn position
                 BugAI bug_script = SpawnBug(position); //spawns a bug at that position
-                bug_script.transform.rotation *= Quaternion.Euler(0f, 0f, Random.Range(-22.5f, 22.5f)); //randomises rotation to create illusion of bugs mindlessly wandering the screen
             }
         }
     }
 
     Vector3 GetRandomPosition()
     {
-        Vector3 position = Random.insideUnitCircle.normalized;
+        Vector3 position = Random.insideUnitCircle;
+
+        position = position.normalized;
 
         position *= spawnCircleRadius;
         position += gameArea.transform.position;
@@ -56,14 +56,12 @@ public class BugSpawner : MonoBehaviour
     BugAI SpawnBug(Vector3 position)
     {
         bugCount += 1;
-        GameObject new_bug = Instantiate(bugPrefab[Random.Range(0, bugPrefab.Length)], position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
+        GameObject new_bug = Instantiate(bugPrefab, position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
 
-        BugAI bug_script = new_bug.GetComponent<BugAI>();
+        BugAI bug_script = new_bug.GetComponent<BugAI>();   
         bug_script.bugSpawner = this;
         bug_script.gameArea = gameArea;
         bug_script.speed = Random.Range(5f, 20f);
-        bug_script.deathAnimator = punchedAnimator;
-        bug_script.deathAnimation = punchedAnimClip;
 
         return bug_script;
     }
