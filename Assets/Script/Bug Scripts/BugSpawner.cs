@@ -5,50 +5,51 @@ using UnityEngine;
 public class BugSpawner : MonoBehaviour
 {
     public GameObject gameArea; //the area the bugs will spawn around
-    public GameObject bugPrefab; //the bugs itself
+    public GameObject[] bugPrefab; //the bug prefab to be spawned into the game
 
     public int bugCount = 0; //the number of bugs currently existing
-    public int bugLimit = 150; //the limit of how many bugs can exist at one time
-    public int bugsPerFrame = 1; //the rate at which a bug is created per game frame
+    public int bugLimit; //the limit of how many bugs can exist at one time
+    public int bugsPerFrame; //the rate at which a bug is created per game frame
 
-    public float spawnCircleRadius = 20.0f; //the radius around the center of the screen where bugs will spawn
-    public float deathCircleRadius = 30.0f; //the radius where bugs will be deleted if they cross it
-
-    public Animator punchedAnimation;
+    public float spawnRadius; //the radius around the center of the screen where bugs will spawn
+    public float deathRadius; //the radius where bugs will be deleted if they cross it
 
     private void Start()
     {
-
+        InvokeRepeating(nameof(MaintainPopulation), 1f, 1f);
     }
 
     void Update()
     {
-        MaintainPopulation();
+
     }
 
     //creates more bugs as they are destroyed while keeping it within the limit
     void MaintainPopulation()
     {
-        //checks if bug count is within the limit
-        if (bugCount < bugLimit)
+        if (MenuHandler.menuHandlerInstance.gameState == GameStates.Game)
         {
-            //for every bug created per frame
-            for (int i = 0; i < bugsPerFrame; i++)
+            //checks if bug count is within the limit
+            if (bugCount < bugLimit)
             {
-                Vector3 position = GetRandomPosition(); //randomises spawn position
-                BugAI bug_script = SpawnBug(position); //spawns a bug at that position
+                //for every bug created per frame
+                for (int i = 0; i < bugsPerFrame; i++)
+                {
+                    Vector3 position = GetRandomPosition(); //randomises spawn position
+                    BugAI bug_script = SpawnBug(position); //spawns a bug at that position
+                    bug_script.transform.Rotate(Vector3.forward * Random.Range(-22.5f, 22.5f)); //randomises bug rotation to create illusion of bugs mindlessly crawling over screen
+                }
             }
         }
     }
 
+    //returns a random position around a circle around the game area
     Vector3 GetRandomPosition()
     {
-        Vector3 position = Random.insideUnitCircle;
+        Vector3 position = Random.insideUnitCircle.normalized; //returns the positions around the circle and not within it
 
-        position = position.normalized;
-
-        position *= spawnCircleRadius;
-        position += gameArea.transform.position;
+        position *= spawnRadius; //sets the radius of the circle
+        position += gameArea.transform.position; //sets the game area center as the center of the circle
 
         return position;
     }
@@ -56,9 +57,9 @@ public class BugSpawner : MonoBehaviour
     BugAI SpawnBug(Vector3 position)
     {
         bugCount += 1;
-        GameObject new_bug = Instantiate(bugPrefab, position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
+        GameObject new_bug = Instantiate(bugPrefab[Random.Range(0, bugPrefab.Length)], position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
 
-        BugAI bug_script = new_bug.GetComponent<BugAI>();   
+        BugAI bug_script = new_bug.GetComponent<BugAI>();
         bug_script.bugSpawner = this;
         bug_script.gameArea = gameArea;
         bug_script.speed = Random.Range(5f, 20f);

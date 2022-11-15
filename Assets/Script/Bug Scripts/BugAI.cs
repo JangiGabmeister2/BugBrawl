@@ -7,29 +7,31 @@ public class BugAI : MonoBehaviour
     public BugSpawner bugSpawner;
     public GameObject gameArea;
 
-    public Animator deathAnimator;
-    public AnimationClip deathAnimation;
-
     public float speed;
 
-    private Rigidbody2D rigidBody;
-
-    private void Awake()
+    private void Start()
     {
-        rigidBody = GetComponent<Rigidbody2D>() as Rigidbody2D;
+
     }
 
-    void Update()
+    private void Update()
     {
         Move();
     }
 
     void Move()
     {
-        transform.position += transform.up * (Time.deltaTime * speed); //moves the bug forward at a certain speed
+        if (MenuHandler.menuHandlerInstance.gameState == GameStates.Game)
+        {
+            transform.position += transform.up * (Time.deltaTime * speed);
 
-        float distance = Vector3.Distance(transform.position, gameArea.transform.position); //returns the difference in distance between the bug's position and game area's position
-        if (distance > bugSpawner.deathCircleRadius) //checks if above distance is larger than death circl radius
+            float distance = Vector3.Distance(transform.position, gameArea.transform.position);
+            if (distance > bugSpawner.deathRadius)
+            {
+                RemoveBug();
+            }
+        }
+        else
         {
             RemoveBug();
         }
@@ -37,7 +39,23 @@ public class BugAI : MonoBehaviour
 
     public void RemoveBug()
     {
-        Destroy(gameObject); //destroys the bug
-        bugSpawner.bugCount -= 1; //decreases the number of bugs currently existing by 1
+        Destroy(gameObject);
+        bugSpawner.bugCount -= 1;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Richard")
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                transform.rotation = collision.gameObject.transform.rotation;
+
+                speed = 1000; //sets speed to fly off
+
+                //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, collision.gameObject.transform.rotation.z - 90)); //changes rotation to player's rotation
+                transform.localScale = Vector3.one * 10f; //changes size
+            }
+        }
     }
 }

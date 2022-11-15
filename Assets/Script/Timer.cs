@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(MenuHandler))]
 public class Timer : MonoBehaviour
 {
-    public float timer = 300;
-    public static int score = 0;
+    public float timer = 305;
+    public int score = 0;
 
     public Text scoreDisplay;
     public Text timerDisplay;
-
 
     private void Start()
     {
@@ -25,23 +23,54 @@ public class Timer : MonoBehaviour
 
     private void TimerTick()
     {
-        timer -= Time.deltaTime;
-
-        if (timer == 0)
+        if (MenuHandler.menuHandlerInstance.gameState == GameStates.Game)
         {
-            timer = 0;
-        }
+            timer -= Time.deltaTime;
 
-        int secs = (int)timer % 60;
-        int mins = (int)timer / 60;
-        string time = "Time:\n0" + mins + ":" + secs;
-        timerDisplay.text = time;
+            if (timer <= 0)
+            {
+                MenuHandler.menuHandlerInstance.NextPanel(1);
+
+                MenuHandler.menuHandlerInstance.gameState = GameStates.Menu;
+                MenuHandler.menuHandlerInstance.NextState();
+            }
+
+            int secs = (int)timer % 60;
+            int mins = (int)timer / 60;
+
+            string secString = $"{secs}";
+            string minString = $"{mins}";
+            if (secs < 10)
+            {
+                secString = $"0{secs}";
+            }
+            if (mins < 10)
+            {
+                minString = $"0{mins}";
+            }
+
+            string time = $"Time:\n{minString}:{secString}";
+            timerDisplay.text = time;
+        }
     }
 
     private void ScoreBoard()
     {
-        score++;
-        string scoreText = score.ToString("0000000");
-        scoreDisplay.text = $"Score:\n{scoreText}";
+        if (MenuHandler.menuHandlerInstance.gameState == GameStates.Game)
+        {
+            score++;
+            string scoreText = score.ToString("0000000");
+            scoreDisplay.text = $"Score:\n{scoreText}";
+        }
+    }
+
+    public void AddPoints(int value)
+    {
+        score += value;
+    }
+
+    public void AddTime(float timeInSeconds)
+    {
+        timer += timeInSeconds;
     }
 }
