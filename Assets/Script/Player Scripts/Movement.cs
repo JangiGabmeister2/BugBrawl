@@ -32,13 +32,12 @@ public class Movement : MonoBehaviour
 
             transform.position += move;
 
-            //Atan2 is the angle between the x axis and a 2D vector starting at zero and terminating at (x,y)
-            float angle = Mathf.Atan2(yAxis, xAxis) * Mathf.Rad2Deg;
+            transform.Translate(move, Space.World);
 
-            //prevents player from resetting to starting facing direction after moving
-            if (yAxis != 0 || xAxis != 0)
+            if (move != Vector3.zero)
             {
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, move);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerSpeed * 500);
             }
         }
     }

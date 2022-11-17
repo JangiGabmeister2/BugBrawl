@@ -78,7 +78,6 @@ public class MenuHandler : MonoBehaviour
                     panels[i].SetActive(false);
                 }
                 panels[2].SetActive(true);
-                Invoke("NextPanel(0)", 5f);
                 break;
             default:
                 for (int i = 0; i < panels.Length; i++)
