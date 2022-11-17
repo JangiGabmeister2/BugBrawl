@@ -49,11 +49,10 @@ public class BugAI : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                transform.rotation = collision.gameObject.transform.rotation;
+                transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
                 speed = 1000; //sets speed to fly off
 
-                //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, collision.gameObject.transform.rotation.z - 90)); //changes rotation to player's rotation
                 transform.localScale = Vector3.one * 10f; //changes size
             }
         }
