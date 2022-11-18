@@ -69,7 +69,7 @@ public class Attacks : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                timerscore.AddPoints(timerscore.score * 2); //doubles score
+                timerscore.AddPoints(200); //adds 200 points
                 timerscore.AddTime(5); //adds 5 seconds when punched
             }
         }
