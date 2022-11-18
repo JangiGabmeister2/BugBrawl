@@ -8,7 +8,7 @@ public class Ant : BugAI
     {
         if (collision.gameObject.tag == "Richard")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyUp(KeyCode.Space))
             {
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
