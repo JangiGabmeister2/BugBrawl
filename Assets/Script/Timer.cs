@@ -29,9 +29,8 @@ public class Timer : MonoBehaviour
 
             if (timer <= 0)
             {
-                MenuHandler.menuHandlerInstance.NextPanel(1);
-
                 MenuHandler.menuHandlerInstance.gameState = GameStates.Menu;
+                MenuHandler.menuHandlerInstance.NextPanel(2);
                 MenuHandler.menuHandlerInstance.NextState();
             }
 

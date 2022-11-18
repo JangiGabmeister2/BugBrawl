@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 8894174422508605911}
   - component: {fileID: 7312264843518163606}
   - component: {fileID: 4090561755942627805}
-  - component: {fileID: 7053771134715752351}
   - component: {fileID: 2036591742177017782}
+  - component: {fileID: 6723309961670524771}
   m_Layer: 0
   m_Name: Golden
-  m_TagString: Bug
+  m_TagString: GoldenBug
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,21 +146,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &7053771134715752351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5755951651217923838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db1e459a57a56c34883ed59b311d0511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bugSpawner: {fileID: 0}
-  gameArea: {fileID: 0}
-  speed: 0
 --- !u!114 &2036591742177017782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +161,18 @@ MonoBehaviour:
   panels: []
   gameState: 0
   panelState: 0
+--- !u!114 &6723309961670524771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755951651217923838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1e459a57a56c34883ed59b311d0511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bugSpawner: {fileID: 0}
+  gameArea: {fileID: 0}
+  speed: 0

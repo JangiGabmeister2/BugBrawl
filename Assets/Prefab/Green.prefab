@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 1277738421602632955}
   - component: {fileID: 8094625414775704096}
   - component: {fileID: 452683680881964095}
-  - component: {fileID: 3211572641431366512}
   - component: {fileID: 7341296800294616410}
+  - component: {fileID: 5577511346065155957}
   m_Layer: 0
   m_Name: Green
-  m_TagString: Bug
+  m_TagString: Pede
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,21 +146,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &3211572641431366512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7231908506395492382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd4a2ff64a5c668438d8ba9e39405c6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bugSpawner: {fileID: 0}
-  gameArea: {fileID: 0}
-  speed: 0
 --- !u!114 &7341296800294616410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +161,18 @@ MonoBehaviour:
   panels: []
   gameState: 0
   panelState: 0
+--- !u!114 &5577511346065155957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7231908506395492382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e0fa186736814478d78d3af3a36e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bugSpawner: {fileID: 0}
+  gameArea: {fileID: 0}
+  speed: 0

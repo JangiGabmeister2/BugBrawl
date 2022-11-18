@@ -12,14 +12,9 @@ public class Attacks : MonoBehaviour
     [SerializeField] private AudioSource punchSFX; //sound effect for punch
 
     [Header("Time/Score Handler")]
-    public Timer scores;
+    public Timer timerscore;
 
-    float cooldown = 0.5f;
-
-    private void Start()
-    {
-
-    }
+    float cooldown = 0.1f;
 
     private void Update()
     {
@@ -42,18 +37,40 @@ public class Attacks : MonoBehaviour
                 rightPunch.GetComponent<Animator>().Play("RightPunch"); //activates right punch
                 leftPunch.GetComponent<Animator>().Play("LeftPunch"); //activates left punch
 
-                cooldown = 0.5f;
+                cooldown = 0.1f;
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bug")
+        if (collision.gameObject.tag == "Ant")
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                scores.AddPoints(10);
+                timerscore.AddPoints(5);
+            }
+        }
+        if (collision.gameObject.tag == "Roach")
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                timerscore.AddPoints(10);
+            }
+        }
+        if (collision.gameObject.tag == "Pede") //either millipede or centipede
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                timerscore.AddPoints(15);
+            }
+        }
+        else if (collision.gameObject.tag == "GoldenBug")
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                timerscore.AddPoints(30);
+                timerscore.AddTime(5); //adds 5 seconds when punched
             }
         }
     }

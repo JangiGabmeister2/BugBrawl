@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldenBug : BugAI
+public class Roach : BugAI
 {
     private void OnTriggerStay2D(Collider2D collision)
     {

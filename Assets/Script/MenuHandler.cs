@@ -73,11 +73,8 @@ public class MenuHandler : MonoBehaviour
                 panels[1].SetActive(true);
                 break;
             case Panels.HighScores:
-                for (int i = 0; i < panels.Length; i++)
-                {
-                    panels[i].SetActive(false);
-                }
                 panels[2].SetActive(true);
+                StartCoroutine(Highscores());
                 break;
             default:
                 for (int i = 0; i < panels.Length; i++)
@@ -104,6 +101,11 @@ public class MenuHandler : MonoBehaviour
         Application.Quit();
     }
 
+    public void HighScore()
+    {
+        NextPanel(2);
+    }
+
     private IEnumerator MenuState()
     {
         NextPanel(0);
@@ -116,6 +118,13 @@ public class MenuHandler : MonoBehaviour
         NextPanel(1);
 
         yield return null;
+    }
+
+    private IEnumerator Highscores()
+    {
+        yield return new WaitForSeconds(5f);
+
+        NextPanel(0);
     }
 
     private void Start()

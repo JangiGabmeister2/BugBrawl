@@ -10,14 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8171468379757339819}
   - component: {fileID: 7489999161493359485}
-  - component: {fileID: 8858598770599482348}
   - component: {fileID: 5208299660235632740}
   - component: {fileID: 1392797660592483622}
-  - component: {fileID: 4810700922306005770}
   - component: {fileID: 944873064204174164}
+  - component: {fileID: 7065509318889721478}
   m_Layer: 0
   m_Name: Blue
-  m_TagString: Bug
+  m_TagString: Roach
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,26 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8858598770599482348
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7430542607162730152}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ca5729cc41ebdf4d927c10ed0530c73, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &5208299660235632740
 Rigidbody2D:
   serializedVersion: 4
@@ -146,21 +125,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &4810700922306005770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7430542607162730152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd1ead547f163b41b41f0c09e5f074a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bugSpawner: {fileID: 0}
-  gameArea: {fileID: 0}
-  speed: 0
 --- !u!114 &944873064204174164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +140,18 @@ MonoBehaviour:
   panels: []
   gameState: 0
   panelState: 0
+--- !u!114 &7065509318889721478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7430542607162730152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10231ae7ded1bd04b97b24373587daa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bugSpawner: {fileID: 0}
+  gameArea: {fileID: 0}
+  speed: 0

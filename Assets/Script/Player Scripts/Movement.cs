@@ -6,6 +6,10 @@ public class Movement : MonoBehaviour
 {
     public float playerSpeed;
 
+    [SerializeField] private Animator bodyWalk;
+    [SerializeField] private Animator leftWalk;
+    [SerializeField] private Animator rightWalk;
+
     Rigidbody2D _rigidBody;
 
     private void Awake()
@@ -38,6 +42,13 @@ public class Movement : MonoBehaviour
             {
                 Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, move);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerSpeed * 500);
+            }
+
+            bodyWalk.GetComponent<Animator>().SetBool("isPlaying", false);
+
+            if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+            {
+                bodyWalk.GetComponent<Animator>().SetBool("isPlaying", true);
             }
         }
     }

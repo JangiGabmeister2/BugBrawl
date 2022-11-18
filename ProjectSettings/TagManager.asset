@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Richard
   - Bug
+  - GoldenBug
+  - Roach
+  - Pede
+  - Ant
   layers:
   - Default
   - TransparentFX
