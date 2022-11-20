@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BugAI : MonoBehaviour
+public abstract class BugAI : MonoBehaviour
 {
     public BugSpawner bugSpawner;
     public GameObject gameArea;
+    public AudioSource screamSFX;
 
     public float speed;
 
@@ -37,4 +38,6 @@ public class BugAI : MonoBehaviour
         Destroy(gameObject);
         bugSpawner.bugCount -= 1;
     }
+
+    public virtual void OnTriggerStay2D(Collider2D collision) { }
 }

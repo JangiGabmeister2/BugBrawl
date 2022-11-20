@@ -713,7 +713,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 398790859}
-  - component: {fileID: 398790858}
   m_Layer: 0
   m_Name: SaveHandler
   m_TagString: Untagged
@@ -721,18 +720,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &398790858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398790857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d558cf976aefd240ae36e599a4a0757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &398790859
 Transform:
   m_ObjectHideFlags: 0
@@ -1896,7 +1883,7 @@ MonoBehaviour:
   bugLimit: 200
   bugsPerFrame: 3
   spawnRadius: 220
-  deathRadius: 230
+  deathRadius: 400
 --- !u!4 &1001257131
 Transform:
   m_ObjectHideFlags: 0
