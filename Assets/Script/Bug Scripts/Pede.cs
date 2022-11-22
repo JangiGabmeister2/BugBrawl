@@ -10,6 +10,8 @@ public class Pede : BugAI
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
+                timerScore.AddPoints(15);
+
                 screamSFX.Play();
 
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction

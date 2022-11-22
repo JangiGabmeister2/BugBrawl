@@ -7,6 +7,8 @@ public class BugSpawner : MonoBehaviour
     public GameObject gameArea; //the area the bugs will spawn around
     public GameObject[] bugPrefab; //the bug prefab to be spawned into the game
 
+    public Timer scoreTimer;
+
     public int bugCount = 0; //the number of bugs currently existing
     public int bugLimit; //the limit of how many bugs can exist at one time
     public int bugsPerFrame; //the rate at which a bug is created per game frame
@@ -17,11 +19,6 @@ public class BugSpawner : MonoBehaviour
     private void Start()
     {
         InvokeRepeating(nameof(MaintainPopulation), 1f, 1f);
-    }
-
-    void Update()
-    {
-
     }
 
     //creates more bugs as they are destroyed while keeping it within the limit
@@ -57,12 +54,20 @@ public class BugSpawner : MonoBehaviour
     BugAI SpawnBug(Vector3 position)
     {
         bugCount += 1;
-        GameObject new_bug = Instantiate(bugPrefab[Random.Range(0, bugPrefab.Length)], position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
+
+        int i = Random.Range(0, 59);
+        if (i >= 1)
+        {
+            i = Random.Range(1, bugPrefab.Length);
+        }
+
+        GameObject new_bug = Instantiate(bugPrefab[i], position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
 
         BugAI bug_script = new_bug.GetComponent<BugAI>();
         bug_script.bugSpawner = this;
         bug_script.gameArea = gameArea;
         bug_script.speed = Random.Range(5f, 20f);
+        bug_script.timerScore = scoreTimer;
 
         return bug_script;
     }

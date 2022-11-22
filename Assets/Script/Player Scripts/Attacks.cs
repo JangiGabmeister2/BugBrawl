@@ -41,37 +41,4 @@ public class Attacks : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ant")
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                timerscore.AddPoints(5);
-            }
-        }
-        if (collision.gameObject.tag == "Roach")
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                timerscore.AddPoints(10);
-            }
-        }
-        if (collision.gameObject.tag == "Pede") //either millipede or centipede
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                timerscore.AddPoints(15);
-            }
-        }
-        else if (collision.gameObject.tag == "GoldenBug")
-        {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                timerscore.AddPoints(200); //adds 200 points
-                timerscore.AddTime(5); //adds 5 seconds when punched
-            }
-        }
-    }
 }

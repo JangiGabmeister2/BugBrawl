@@ -10,6 +10,9 @@ public class GoldenBug : BugAI
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
+                timerScore.AddPoints(200);
+                timerScore.AddTime(5);
+
                 screamSFX.Play();
 
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction

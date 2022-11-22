@@ -10,8 +10,17 @@ public class Roach : BugAI
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
+                if (transform.name == "GermanRoach")
+                {
+                    timerScore.AddPoints(10);
+                }
+                else if (transform.name == "CommonRoach")
+                {
+                    timerScore.AddPoints(7);
+                }
+
                 screamSFX.Play();
-                    
+                     
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
                 speed = -1000; //sets speed to fly off

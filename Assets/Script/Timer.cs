@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float timer = 65;
+    public GameObject player; //the player game object
+    public float timer;
+    public float timeElapsed;
     public int score = 0;
 
     public Text scoreDisplay;
@@ -25,13 +27,15 @@ public class Timer : MonoBehaviour
     {
         if (MenuHandler.menuHandlerInstance.gameState == GameStates.Game)
         {
+            player.SetActive(true);
+
             timer -= Time.deltaTime;
+            timeElapsed += Time.deltaTime;
 
             if (timer <= 0)
             {
-                MenuHandler.menuHandlerInstance.gameState = GameStates.Menu;
-                MenuHandler.menuHandlerInstance.NextPanel(2);
-                MenuHandler.menuHandlerInstance.NextState();
+                timer = 0;
+                player.SetActive(false);
             }
 
             int secs = (int)timer % 60;
@@ -71,5 +75,6 @@ public class Timer : MonoBehaviour
     public void AddTime(float timeInSeconds)
     {
         timer += timeInSeconds;
+        timeElapsed += timeInSeconds;
     }
 }

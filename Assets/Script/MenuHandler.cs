@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public enum GameStates { Menu, Game }
+public enum GameStates { Menu, Game, Hiscores, Input }
 
-public enum Panels { MainMenu, GameHUD, HighScores }
+public enum Panels { MainMenu, GameHUD, HighScores, Input }
 
 public class MenuHandler : MonoBehaviour
 {
-    public GameObject[] panels;
-
+    #region MenuHandler Instance
     private static MenuHandler _menuManager;
     public static MenuHandler menuHandlerInstance
     {
@@ -32,10 +32,20 @@ public class MenuHandler : MonoBehaviour
     {
         menuHandlerInstance = this;
     }
+    #endregion
+
+    [SerializeField] private Timer timer;
+
+    public GameObject[] panels;
 
     public GameStates gameState;
     public Panels panelState;
 
+    public GameObject menuFirstSelect;
+    public GameObject scoresFirstSelect;
+    public GameObject inputFirstSelect;
+
+    #region Switch States/Panels
     public void NextState()
     {
         switch (gameState)
@@ -45,6 +55,12 @@ public class MenuHandler : MonoBehaviour
                 break;
             case GameStates.Game:
                 StartCoroutine(GameState());
+                break;
+            case GameStates.Hiscores:
+                StartCoroutine(Highscores());
+                break;
+            case GameStates.Input:
+                StartCoroutine(InputState());
                 break;
             default:
                 StartCoroutine(MenuState());
@@ -73,8 +89,19 @@ public class MenuHandler : MonoBehaviour
                 panels[1].SetActive(true);
                 break;
             case Panels.HighScores:
+                for (int i = 0; i < panels.Length; i++)
+                {
+                    panels[i].SetActive(false);
+                }
+                panels[0].SetActive(true);
                 panels[2].SetActive(true);
-                StartCoroutine(Highscores());
+                break;
+            case Panels.Input:
+                for (int i = 0; i < panels.Length; i++)
+                {
+                    panels[i].SetActive(true);
+                }
+                panels[1].SetActive(false);
                 break;
             default:
                 for (int i = 0; i < panels.Length; i++)
@@ -85,11 +112,12 @@ public class MenuHandler : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
+    #region Button Functions
     public void PlayButton()
     {
         gameState = GameStates.Game;
-
         NextState();
     }
 
@@ -103,12 +131,26 @@ public class MenuHandler : MonoBehaviour
 
     public void HighScore()
     {
-        NextPanel(2);
+        gameState = GameStates.Hiscores;
+
+        NextState();
     }
 
+    public void Return()
+    {
+        gameState = GameStates.Menu;
+
+        NextState();
+    }
+    #endregion
+
+    #region PanelStates
     private IEnumerator MenuState()
     {
         NextPanel(0);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(menuFirstSelect);
 
         yield return null;
     }
@@ -122,14 +164,41 @@ public class MenuHandler : MonoBehaviour
 
     private IEnumerator Highscores()
     {
-        yield return new WaitForSeconds(5f);
+        NextPanel(2);
 
-        NextPanel(0);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(scoresFirstSelect);
+
+        yield return null;
     }
+    private IEnumerator InputState()
+    {
+        NextPanel(3);
 
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(inputFirstSelect);
+
+        yield return null;
+    }
+    #endregion
+
+    private void Update()
+    {
+        if (gameState == GameStates.Game)
+        {
+            if (timer.timer <= 0)
+            {
+                gameState = GameStates.Input;
+
+                Invoke(nameof(NextState), 2f);
+            }
+        }
+    }
     private void Start()
     {
         gameState = GameStates.Menu;
+        timer.timer = 5f;
+        timer.score = -1;
 
         NextPanel(0);
         NextState();

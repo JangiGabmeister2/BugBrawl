@@ -10,6 +10,15 @@ public class Ant : BugAI
         {
             if (Input.GetKeyUp(KeyCode.Space))
             {
+                if (transform.name == "FireAnt")
+                {
+                    timerScore.AddPoints(2);
+                }
+                else if (transform.name == "RedAnt")
+                {
+                    timerScore.AddPoints(5);
+                }
+
                 screamSFX.Play();
 
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
