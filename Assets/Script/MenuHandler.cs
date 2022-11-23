@@ -197,7 +197,7 @@ public class MenuHandler : MonoBehaviour
     private void Start()
     {
         gameState = GameStates.Menu;
-        timer.timer = 65f;
+        timer.timer = 5f;
         timer.score = -1;
 
         NextPanel(0);
