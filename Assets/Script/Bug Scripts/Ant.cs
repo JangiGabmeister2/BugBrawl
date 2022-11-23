@@ -8,7 +8,7 @@ public class Ant : BugAI
     {
         if (collision.gameObject.tag == "Richard")
         {
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (transform.name == "FireAnt")
                 {
@@ -24,8 +24,6 @@ public class Ant : BugAI
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
                 speed = -1000; //sets speed to fly off
-
-                transform.localScale = Vector3.one * 10f; //changes size
             }
         }
     }

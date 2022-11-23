@@ -8,7 +8,7 @@ public class GoldenBug : BugAI
     {
         if (collision.gameObject.tag == "Richard")
         {
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 timerScore.AddPoints(200);
                 timerScore.AddTime(5);
@@ -18,8 +18,6 @@ public class GoldenBug : BugAI
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
                 speed = -1000; //sets speed to fly off
-
-                transform.localScale = Vector3.one * 10f; //changes size
             }
         }
     }
