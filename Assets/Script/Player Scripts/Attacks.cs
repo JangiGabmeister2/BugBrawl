@@ -18,9 +18,9 @@ public class Attacks : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F)) //when player presses the button
         {
-            Attack();
+            Attack(); //player attacks
         }
 
         cooldown -= Time.deltaTime;

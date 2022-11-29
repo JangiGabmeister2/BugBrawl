@@ -8,7 +8,7 @@ public class Pede : BugAI
     {
         if (collision.gameObject.tag == "Richard")
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 timerScore.AddPoints(15);
 
