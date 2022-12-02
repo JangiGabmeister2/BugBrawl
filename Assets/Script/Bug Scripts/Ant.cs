@@ -8,7 +8,7 @@ public class Ant : BugAI
     {
         if (collision.gameObject.tag == "Richard")
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Attacks.hitting)
             {
                 if (transform.name == "FireAnt")
                 {

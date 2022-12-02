@@ -16,14 +16,25 @@ public class Attacks : MonoBehaviour
 
     float cooldown = 0.1f;
 
+    public static bool hitting;
+    bool hitDone = false;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F)) //when player presses the button
+        if (Input.GetKeyDown(KeyCode.F) && !hitting) //when player presses the button
         {
             Attack(); //player attacks
-        }
+
+            hitting = true;
+            Invoke("NoLongerHitting", .25f);
+        }               
 
         cooldown -= Time.deltaTime;
+    }
+
+    void NoLongerHitting()
+    {
+        hitting = false;
     }
 
     private void Attack()

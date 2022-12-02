@@ -1,44 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine;
+//using UnityEngine.UI;
 
-public class HighscoreManager : MonoBehaviour
-{
-    private HighscoreData[] highscores;
-    private HighscoreData highscore;
-    private SaveHighscoreToFile saveSystem;
+//public class HighscoreManager : MonoBehaviour
+//{
+//    Timer timer = new Timer();
+//    SaveHighscoreToFile saveSystem = new SaveHighscoreToFile();
 
-    public Text playerNameText, timeElapsedText, scoreText;
-    public GameObject inputPanel;
+//    public Text leaderboardDisplay;
+//    public Button btn1, btn2, btn3;
 
-    private float[] scoreOrder = new float[9];
+//    private string userName;
+//    private string timeElapsed;
+//    private int scoreEarned;
 
-    void Start()
-    {
-        //HighscoreData data = new HighscoreData();
-        //data.score = 400f;
-        //data.time = "3:45";
-        //data.userName = "Michael";
-        //saveSystem.Save(data);
-        //HighscoreData loadedData = saveSystem.Load();
-        //Debug.Log($"Username: {loadedData.userName}, Time: {loadedData.time}pm, {loadedData.score}pts");
+//    public void DisplayScores()
+//    {
+//        saveSystem.LoadScores(leaderboardDisplay);
+//    }
 
-        //highscore = saveSystem.Load();
-        string[] loadedNames = new string[9];
-        string[] loadedTimes = new string[9];
-        float[] loadedScore = new float[9];
+//    public void SubmitScores()
+//    {
+//        userName = btn1.name + btn2.name + btn3.name;
+//        timeElapsed = timer.GetTime();
+//        scoreEarned = timer.GetScore();
 
+//        HighscoreData newData = new HighscoreData();
+//        newData.playerName = userName;
+//        newData.time = timeElapsed;
+//        newData.score = scoreEarned;
 
-
-
-        playerNameText.text = "\n";
-        timeElapsedText.text = "\n";
-        scoreText.text = "\n";
-    }
-
-    public void OnSubmitButton()
-    {
-        inputPanel.SetActive(false);
-    }
-}
+//        saveSystem.CreateText(newData);
+//    }
+//}

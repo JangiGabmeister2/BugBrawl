@@ -56,7 +56,7 @@ public class BugSpawner : MonoBehaviour
         bugCount += 1;
 
         int i = Random.Range(0, 59);
-        if (i >= 1)
+        if (i > 5)
         {
             i = Random.Range(1, bugPrefab.Length);
         }

@@ -36,6 +36,8 @@ public class MenuHandler : MonoBehaviour
 
     [SerializeField] private Timer timer;
 
+    //HighscoreManager highscore;
+
     public GameObject[] panels;
 
     public GameStates gameState;
@@ -56,12 +58,12 @@ public class MenuHandler : MonoBehaviour
             case GameStates.Game:
                 StartCoroutine(GameState());
                 break;
-            case GameStates.Hiscores:
-                StartCoroutine(Highscores());
-                break;
-            case GameStates.Input:
-                StartCoroutine(InputState());
-                break;
+            //case GameStates.Hiscores:
+            //    StartCoroutine(Highscores());
+            //    break;
+            //case GameStates.Input:
+            //    StartCoroutine(InputState());
+            //    break;
             default:
                 StartCoroutine(MenuState());
                 break;
@@ -74,36 +76,36 @@ public class MenuHandler : MonoBehaviour
 
         switch (panelState)
         {
-            case Panels.MainMenu:
+            case Panels.MainMenu: // 0
                 for (int i = 0; i < panels.Length; i++)
                 {
                     panels[i].SetActive(false);
                 }
                 panels[0].SetActive(true);
                 break;
-            case Panels.GameHUD:
+            case Panels.GameHUD: // 1
                 for (int i = 0; i < panels.Length; i++)
                 {
                     panels[i].SetActive(false);
                 }
                 panels[1].SetActive(true);
                 break;
-            case Panels.HighScores:
-                for (int i = 0; i < panels.Length; i++)
-                {
-                    panels[i].SetActive(false);
-                }
-                panels[0].SetActive(true);
-                panels[2].SetActive(true);
-                break;
-            case Panels.Input:
-                for (int i = 0; i < panels.Length; i++)
-                {
-                    panels[i].SetActive(true);
-                }
-                panels[1].SetActive(false);
-                break;
-            default:
+            //case Panels.HighScores: // 2
+            //    for (int i = 0; i < panels.Length; i++)
+            //    {
+            //        panels[i].SetActive(false);
+            //    }
+            //    panels[0].SetActive(true);
+            //    panels[2].SetActive(true);
+            //    break;
+            //case Panels.Input: // 3
+            //    for (int i = 0; i < panels.Length; i++)
+            //    {
+            //        panels[i].SetActive(false);
+            //    }
+            //    panels[3].SetActive(true);
+            //    break;
+            default: // 0
                 for (int i = 0; i < panels.Length; i++)
                 {
                     panels[i].SetActive(false);
@@ -129,19 +131,19 @@ public class MenuHandler : MonoBehaviour
         Application.Quit();
     }
 
-    public void HighScore()
-    {
-        gameState = GameStates.Hiscores;
+    //public void HighScore()
+    //{
+    //    gameState = GameStates.Hiscores;
 
-        NextState();
-    }
+    //    NextState();
+    //}
 
-    public void Return()
-    {
-        gameState = GameStates.Menu;
+    //public void Return()
+    //{
+    //    gameState = GameStates.Menu;
 
-        NextState();
-    }
+    //    NextState();
+    //}
     #endregion
 
     #region PanelStates
@@ -159,27 +161,31 @@ public class MenuHandler : MonoBehaviour
     {
         NextPanel(1);
 
-        yield return null;
-    }
-
-    private IEnumerator Highscores()
-    {
-        NextPanel(2);
-
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(scoresFirstSelect);
+        timer.NewGame();
 
         yield return null;
     }
-    private IEnumerator InputState()
-    {
-        NextPanel(3);
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(inputFirstSelect);
+    //private IEnumerator Highscores()
+    //{
+    //    NextPanel(2);
 
-        yield return null;
-    }
+    //    highscore.DisplayScores();
+
+    //    EventSystem.current.SetSelectedGameObject(null);
+    //    EventSystem.current.SetSelectedGameObject(scoresFirstSelect);
+
+    //    yield return null;
+    //}
+    //private IEnumerator InputState()
+    //{
+    //    NextPanel(3);
+
+    //    EventSystem.current.SetSelectedGameObject(null);
+    //    EventSystem.current.SetSelectedGameObject(inputFirstSelect);
+
+    //    yield return null;
+    //}
     #endregion
 
     private void Update()
@@ -188,7 +194,7 @@ public class MenuHandler : MonoBehaviour
         {
             if (timer.timer <= 0)
             {
-                gameState = GameStates.Input;
+                gameState = GameStates.Menu;
 
                 Invoke(nameof(NextState), 2f);
             }
@@ -197,7 +203,7 @@ public class MenuHandler : MonoBehaviour
     private void Start()
     {
         gameState = GameStates.Menu;
-        timer.timer = 65f;
+        timer.timer = 5f;
         timer.score = -1;
 
         NextPanel(0);

@@ -7,8 +7,9 @@ public class Timer : MonoBehaviour
 {
     public GameObject player; //the player game object
     public float timer;
-    public float timeElapsed;
+    float timeElapsed;
     public int score = 0;
+    string time;
 
     public Text scoreDisplay;
     public Text timerDisplay;
@@ -52,8 +53,8 @@ public class Timer : MonoBehaviour
                 minString = $"0{mins}";
             }
 
-            string time = $"Time:\n{minString}:{secString}";
-            timerDisplay.text = time;
+            time = $"{minString}:{secString}";
+            timerDisplay.text = $"Time:\n{time}";
         }
     }
 
@@ -67,6 +68,15 @@ public class Timer : MonoBehaviour
         }
     }
 
+    public void NewGame()
+    {
+        timer = 65f;
+        score = 0;
+        timeElapsed = 0f;
+
+        player.SetActive(true);
+    }
+
     public void AddPoints(int value)
     {
         score += value;
@@ -76,5 +86,15 @@ public class Timer : MonoBehaviour
     {
         timer += timeInSeconds;
         timeElapsed += timeInSeconds;
+    }
+
+    public string GetTime()
+    {
+        return time;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Roach : BugAI
 {
     public override void OnTriggerStay2D(Collider2D collision)
-    {
+    {        
         if (collision.gameObject.tag == "Richard")
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Attacks.hitting)
             {
                 if (transform.name == "GermanRoach")
                 {
@@ -27,4 +27,5 @@ public class Roach : BugAI
             }
         }
     }
+
 }
