@@ -17,7 +17,6 @@ public class Attacks : MonoBehaviour
     float cooldown = 0.1f;
 
     public static bool hitting;
-    bool hitDone = false;
 
     private void Update()
     {

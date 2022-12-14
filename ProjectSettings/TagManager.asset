@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Richard
-  - Bug
-  - GoldenBug
-  - Roach
-  - Pede
-  - Ant
+  - Fire Ant
+  - Red Ant
+  - Common Roach
+  - German Roach
+  - Golden Scorpion
+  - Orange Scorpion
   layers:
   - Default
   - TransparentFX

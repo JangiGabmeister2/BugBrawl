@@ -10,12 +10,16 @@ public class Ant : BugAI
         {
             if (Attacks.hitting)
             {
-                if (transform.name == "FireAnt")
+                if (transform.tag == "Fire Ant")
                 {
+                    SpawnPointIndicator("<color=white>+2</color>");
+                    alreadyCalled = true;
                     timerScore.AddPoints(2);
                 }
-                else if (transform.name == "RedAnt")
+                else if (transform.tag == "Red Ant")
                 {
+                    SpawnPointIndicator("<color=white>+5</color>");
+                    alreadyCalled = true;
                     timerScore.AddPoints(5);
                 }
 
@@ -23,7 +27,7 @@ public class Ant : BugAI
 
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
-                speed = -1000; //sets speed to fly off
+                speed = -500; //sets speed to fly off
             }
         }
     }

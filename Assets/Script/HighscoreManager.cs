@@ -1,34 +1,71 @@
-//using UnityEngine;
-//using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
-//public class HighscoreManager : MonoBehaviour
-//{
-//    Timer timer = new Timer();
-//    SaveHighscoreToFile saveSystem = new SaveHighscoreToFile();
+public class HighscoreManager : MonoBehaviour
+{
+    [SerializeField] Timer timer;
+    SaveHighscoreToFile saveSystem;
 
-//    public Text leaderboardDisplay;
-//    public Button btn1, btn2, btn3;
+    [SerializeField] Text previousScoreDisplay;
 
-//    private string userName;
-//    private string timeElapsed;
-//    private int scoreEarned;
+    int scoreEarned;
 
-//    public void DisplayScores()
-//    {
-//        saveSystem.LoadScores(leaderboardDisplay);
-//    }
+    private void Start()
+    {
+        saveSystem = new SaveHighscoreToFile();
+    }
 
-//    public void SubmitScores()
-//    {
-//        userName = btn1.name + btn2.name + btn3.name;
-//        timeElapsed = timer.GetTime();
-//        scoreEarned = timer.GetScore();
+    private void Update()
+    {
+        scoreEarned = timer.GetScore();
 
-//        HighscoreData newData = new HighscoreData();
-//        newData.playerName = userName;
-//        newData.time = timeElapsed;
-//        newData.score = scoreEarned;
+        DisplayScores();
 
-//        saveSystem.CreateText(newData);
-//    }
-//}
+        if (timer.timer <= 0)
+        {
+            SubmitScores();
+        }
+    }
+
+    public void DisplayScores()
+    {
+        string temp = saveSystem.LoadScores();
+
+        int previousScore;
+
+        bool parse = int.TryParse(temp, out previousScore);
+
+        if (parse)
+        {
+            previousScoreDisplay.text = $"Current Highscore:\n{previousScore:0000000}";
+        }
+    }
+
+    public void SubmitScores()
+    {
+        CheckNewScore(scoreEarned);
+    }
+
+    public void CheckNewScore(int newScore)
+    {
+        string temp = saveSystem.LoadScores();
+
+        bool parse = int.TryParse(temp, out int previousScore);
+
+        if (parse)
+        {
+            if (newScore > previousScore)
+            {
+                saveSystem.ClearScores();
+
+                previousScore = scoreEarned;
+
+                HighscoreData newData = new HighscoreData();
+
+                newData.score = previousScore;
+
+                saveSystem.CreateText(newData);
+            }
+        }
+    }
+}

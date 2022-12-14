@@ -10,20 +10,24 @@ public class Roach : BugAI
         {
             if (Attacks.hitting)
             {
-                if (transform.name == "GermanRoach")
+                if (transform.tag == "German Roach")
                 {
+                    SpawnPointIndicator("<color=white>+10</color>");
                     timerScore.AddPoints(10);
+                    alreadyCalled = true;
                 }
-                else if (transform.name == "CommonRoach")
+                else if (transform.tag == "Common Roach")
                 {
+                    SpawnPointIndicator("<color=white>+7</color>");
                     timerScore.AddPoints(7);
+                    alreadyCalled = true;
                 }
 
                 screamSFX.Play();
                      
                 transform.rotation = collision.gameObject.transform.rotation; //changes bug rotation to player rotation, so when gets shot off, is shot in direction of player look direction
 
-                speed = -1000; //sets speed to fly off
+                speed = -500; //sets speed to fly off
             }
         }
     }

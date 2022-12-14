@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BugSpawner : MonoBehaviour
 {
     public GameObject gameArea; //the area the bugs will spawn around
     public GameObject[] bugPrefab; //the bug prefab to be spawned into the game
+
+    public GameObject pointIndicatorPrefab;
+    public Text pointIndicatorText;
 
     public Timer scoreTimer;
 
@@ -55,10 +59,10 @@ public class BugSpawner : MonoBehaviour
     {
         bugCount += 1;
 
-        int i = Random.Range(0, 59);
-        if (i > 5)
+        int i = Random.Range(0, 200);
+        if (i >= 2)
         {
-            i = Random.Range(1, bugPrefab.Length);
+            i = Random.Range(2, 6);
         }
 
         GameObject new_bug = Instantiate(bugPrefab[i], position, Quaternion.FromToRotation(Vector3.up, gameArea.transform.position - position), gameObject.transform);
@@ -68,6 +72,8 @@ public class BugSpawner : MonoBehaviour
         bug_script.gameArea = gameArea;
         bug_script.speed = Random.Range(5f, 20f);
         bug_script.timerScore = scoreTimer;
+        bug_script.pointIndicator = pointIndicatorPrefab;
+        bug_script.pointIndicatorText = pointIndicatorText;
 
         return bug_script;
     }

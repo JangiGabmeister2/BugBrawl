@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class BugAI : MonoBehaviour
 {
@@ -10,11 +11,15 @@ public abstract class BugAI : MonoBehaviour
     public GameObject gameArea;
     public AudioSource screamSFX;
 
+    public GameObject pointIndicator;
+    public Text pointIndicatorText;
+
     Rigidbody2D rb;
 
     public float speed;
 
-    private float lifeTime = 30f;
+    float lifeTime = 15f;
+    protected bool alreadyCalled = false;
 
     private void Awake()
     {
@@ -34,10 +39,14 @@ public abstract class BugAI : MonoBehaviour
 
             //transform.position += transform.up * (Time.deltaTime * speed);
             Vector3 forwardVector = transform.up;
-            rb.MovePosition(rb.position + new Vector2(forwardVector.x, forwardVector.y) * speed /10f);
+            rb.MovePosition(rb.position + new Vector2(forwardVector.x, forwardVector.y) * speed / 10f);
 
             float distance = Vector3.Distance(transform.position, gameArea.transform.position);
-            if (distance > bugSpawner.deathRadius || lifeTime == 0f)
+            if (distance > bugSpawner.deathRadius)
+            {
+                RemoveBug();
+            }
+            if (lifeTime <= 0f)
             {
                 RemoveBug();
             }
@@ -52,6 +61,18 @@ public abstract class BugAI : MonoBehaviour
     {
         Destroy(gameObject);
         bugSpawner.bugCount -= 1;
+    }
+
+    public void SpawnPointIndicator(string text)
+    {
+        pointIndicatorText.text = text;
+
+        if (!alreadyCalled)
+        {
+            GameObject newGO = Instantiate(pointIndicator, transform.position, Quaternion.identity, gameArea.transform);
+
+            Destroy(newGO, 1f);
+        }
     }
 
     public virtual void OnTriggerStay2D(Collider2D collision) { }

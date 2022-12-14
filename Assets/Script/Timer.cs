@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public GameObject player; //the player game object
+
     public float timer;
     float timeElapsed;
     public int score = 0;
@@ -37,6 +38,11 @@ public class Timer : MonoBehaviour
             {
                 timer = 0;
                 player.SetActive(false);
+            }
+
+            if (timer >= 300)
+            {
+                timer = 300;
             }
 
             int secs = (int)timer % 60;
